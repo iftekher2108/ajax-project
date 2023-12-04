@@ -110,21 +110,13 @@
 
 
             </tbody>
-
-            <a href="multi-delete.php" class="delete-record btn btn-success">data record delete</a>
-
+            
         </table>
     </div>
 
 
-    <br><br><br>
 
-    <button class="data btn btn-primary"> load data</button>
-    <br><br><br>
 
-    <div class="show">
-
-    </div>
 
 
 
