@@ -99,7 +99,6 @@
     <button class="delete-record btn btn-success px-5 mx-5 my-1 align-self-end">delete</button>
     <div class="table-data">
         <table class="text-center">
-            <th class="bg-success text-white-50"><input type="checkbox" class="select_all"></th>
             <th class="bg-success text-white-50 ">ID</th>
             <th class="bg-success text-white-50 ">Name</th>
             <th class="bg-success text-white-50 ">E-mail</th>
@@ -112,6 +111,7 @@
 
             </tbody>
 
+            <a href="multi-delete.php" class="delete-record btn btn-success">data record delete</a>
 
         </table>
     </div>
@@ -135,51 +135,56 @@
 
 
     <script src="./dist/jquery.min.js"></script>
+    
     <script src="./node_modules/jquery-ui/dist/jquery-ui.min.js"></script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
+   
     <script src="./src/main.js"></script>
 
     <script>
-        $(".select_all").click(function() {
-            console.log('iftekher mahmud')
-            $('.select_id').prop('checked', $(this).prop('checked'))
-        })
 
-        $('.delete-record').click(function() {
+        // all delete not possible to this file
+
+
+        // $(".select_all").click(function() {
+        //     console.log('iftekher mahmud')
+        //     $('.select_id').prop('checked', $(this).prop('checked'))
+        // })
+
+        // $('.delete-record').click(function() {
             
-           var id = [];
-            $('.select_id:checked').each(function() {
-                id.push($(this).val())
-            })
+        //     var id = [];
+        //     $('.select_id:checked').each(function() {
+        //         id.push($(this).val())
+        //     })
 
-            $.ajax({
-                type: 'delete',
-                url: 'multi-delete.php', 
-                data: {
-                 ids:id    
-                }
-                    
-                ,
-                success: function(data) {
-                    console.log("delete successfully" +id)
-                }
-                // error:function(data) {
-                //     console.log('error'+ data)
-                // }
-            })
+        //     $.ajax({
+        //         type: 'delete',
+        //         url: './multi-delete.php', 
+        //         data: {
+        //          uid:id   
+        //         },
+        //         success: function(data) {
+        //             console.log("delete successfully")
+        //             $('.select_id:checked').parent().parent().hide(300)
+        //             // window.location.href= 'index.php';
+        //         }
+        //         // error:function(data) {
+        //         //     console.log('error'+ data)
+        //         // }
+        //     })
 
 
-        })
+        // })
 
 
 
 
 
     </script>
-
 </body>
 
 </html>

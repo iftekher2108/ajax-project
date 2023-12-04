@@ -13,6 +13,4 @@
     $query = mysqli_query($con, $update);
 
 
-    print $id;
-
 ?>

@@ -1,44 +1,30 @@
-//  $(document).ready(function () {
-//     //  $(".show").load("./load-data.html")
+ 
+//  on load display data
+ $(document).ready(function () {
+    //  $(".show").load("./load-data.html")
 
-//     $.ajax({
-//        url: "./display.php",
-//        method: "post",
-//        success: function (data) {
-//           $("#tbody").html(data);
-//        }
-//     })
+    $.ajax({
+       url: "./display.php",
+       success: function (data) {
+          $("#tbody").html(data);
+       }
+    })
 
-//  });
-
-window.onload = function () {
-   //    $.ajax({
-   //    url: "./display.php",
-   //    method: "post",
-   //    success: function (p) {
-   //       $("#tbody").html(p);
-   //    }
-   // })
-
-   // if(! $("#tbody").load("./display.php")){
-
-   // } else {
-
-   // }
-   $("#tbody").load("./display.php");
-
-}
+ });
 
 
 
-$(".data").click(function () {
-   $(".show").load("./display.php")
-   $(".show").css({
-      "color": "white",
-      "background-color": "black"
-   })
-})
 
+// $(".data").click(function () {
+//    $(".show").load("./display.php")
+//    $(".show").css({
+//       "color": "white",
+//       "background-color": "black"
+//    })
+// })
+
+
+// submit to data save
 $(".submit").click(function (e) {
    e.preventDefault();
 
@@ -76,11 +62,9 @@ $(".submit").click(function (e) {
    })
 
 })
+// submit to data save
 
 
-
-
-//  console.log($(this).attr('[data-id]'))
 
 
 // database data deleted without page reloading
@@ -93,7 +77,9 @@ $(".submit").click(function (e) {
 
       },
       success: function() {
-         $("#tbody").load("./display.php");
+         // $("#tbody").load("./display.php");
+         $(`#id${id}`).parent().parent().hide(300)
+
       }
    })
 }
@@ -104,70 +90,6 @@ $(".submit").click(function (e) {
 
 
 // database data update without page reloading
-// function items_update(id) {
-
-//    $.ajax({
-//       url: "./update.php",
-//       method: "post",
-//       data:{
-//          uid: id,
-//          uname: name,
-//          uemail: email,
-//          upassword: password
-//       },
-//       success:function() {
-//          $("#tbody").load("./display.php");
-//       }
-//    })
-// }
-
-
-
-// ==============================ajax data select delete ==================
-
-
-
-
-// =============================ajax select data delete ==========================
-
-
-
-   // function items_update(id) {
-   //    var name = $("#name").val();
-   //    var email = $("#email").val();
-   //    var password = $("#password").val();
-   
-   //    $.ajax({
-   //       url: "./update.php",
-   //       method: "POST",
-   //       data: {
-   //          uid:id,
-   //          uname: name,
-   //          uemail: email,
-   //          upassword: password
-   //       },
-   //       success: function () {
-   //          // console.log("success")
-   //          // $("#name").val("");
-   //          // $("#email").val("");
-   //          // $("#password").val("");
-   
-   //          //  $.ajax({
-   //          //     url: "./display.php",
-   //          //     method: "post",
-   //          //     success: function (responce) {
-   //          //       $("#tbody").html(responce);
-   //          //     }
-   //          //  })
-   //          // $("#tbody").load("./display.php");
-   
-   
-   //       }
-   //    })
-   
-   // }
-
-
 
 
 
