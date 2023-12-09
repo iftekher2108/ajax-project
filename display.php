@@ -1,33 +1,20 @@
-<?php
+<?php 
 
-include "./connection.php";
+require './connection.php';
 
-$select = "SELECT * FROM user";
+$query = "SELECT * FROM user";
 
-$execute = mysqli_query($con, $select);
+$result = mysqli_query($con, $query);
 
-while ($row = mysqli_fetch_array($execute)) { ?>
+$data = []; // Initialize an array to store the results
 
-
-    <tr id="select<?php echo $row['id']; ?>">
-        <td><?php echo $row['id']; ?></td>
-        <td><?php echo $row['name']; ?></td>
-        <td><?php echo $row['email']; ?></td>
-        <td><?php echo $row['password']; ?></td>
-        <!-- <td class="edit bg-success user-select-none text-white-50" ><a data-bs-toggle="modal" data-bs-target="#id<?php echo $row['id']; ?>" >edit</a>  -->      
-    <!-- </td> -->
-
-        <td class="bg-success user-select-none text-white-50" ><a onclick="item_delete( <?php echo $row['id']; ?> )" id="id<?php echo $row['id']; ?>" class="delete">delete</a></td>
-
-    </tr>
-
-
-<!-- href="./delete.php?id=<?php echo $row["id"]; ?>" -->
-
-
-
-
-
-<?php
+while ($row = mysqli_fetch_assoc($result)) {
+    $data[] = $row; // Append each row to the $data array
 }
+
+// Convert the $data array to JSON format
+echo json_encode($data);
+
+// mysqli_close($con); // Close the database connection
+
 ?>

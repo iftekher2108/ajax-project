@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -32,7 +32,7 @@
         }
 
         .anime {
-            animation: rotate 1.5s ease-in-out infinite;
+            animation: rotate 1s linear infinite;
         }
 
 
@@ -52,8 +52,10 @@
 <body>
 
 
-    <div id="load" class="fs-1 position-fixed top-50 d-none">
-        <i class="anime fa-solid fa-spinner"></i>
+    <div class="load h-100 w-100 position-fixed bg-white ">
+        <div class="position-absolute display-4 top-50 start-50 translate-middle" >
+            <i class="anime  fa-solid fa-spinner"></i>
+        </div>    
     </div>
 
 
@@ -99,22 +101,55 @@
     <button class="delete-record btn btn-success px-5 mx-5 my-1 align-self-end">delete</button>
     <div class="table-data">
         <table class="text-center">
-            <th class="bg-success text-white-50 ">ID</th>
-            <th class="bg-success text-white-50 ">Name</th>
-            <th class="bg-success text-white-50 ">E-mail</th>
-            <th class="bg-success text-white-50 ">Password</th>
-            <th class="bg-success text-white-50 " colspan="2">Action</th>
+            <tr>
+                <th class="bg-success text-white-50"><input type="checkbox" id="select-all"></th>
+                <th class="bg-success text-white-50 ">ID</th>
+                <th class="bg-success text-white-50 ">Name</th>
+                <th class="bg-success text-white-50 ">E-mail</th>
+                <th class="bg-success text-white-50 ">Password</th>
+                <th class="bg-success text-white-50 " colspan="2">Action</th>
+            </tr>
 
-            <tbody id="tbody">
+            <?php
+
+            include "./connection.php";
+
+            $select = "SELECT * FROM user";
+
+            $execute = mysqli_query($con, $select);
+
+            while ($row = mysqli_fetch_array($execute)) { ?>
+
+
+                <tr id="select<?php echo $row['id']; ?>">
+                    <td><input type="checkbox" class="select-id" value="<?php echo $row['id'] ?>"></td>
+                    <td><?php echo $row['id']; ?></td>
+                    <td><?php echo $row['name']; ?></td>
+                    <td><?php echo $row['email']; ?></td>
+                    <td><?php echo $row['password']; ?></td>
+                    <!-- <td class="edit bg-success user-select-none text-white-50" ><a data-bs-toggle="modal" data-bs-target="#id<?php echo $row['id']; ?>" >edit</a>  -->
+                    <!-- </td> -->
+
+                    <td class="bg-success user-select-none text-white-50"><a onclick="item_delete( <?php echo $row['id']; ?> )" id="id<?php echo $row['id']; ?>" class="delete">delete</a></td>
+
+                </tr>
+
+
+                <!-- href="./delete.php?id=<?php echo $row["id"]; ?>" -->
 
 
 
-            </tbody>
-            
+
+
+            <?php
+            }
+            ?>
+
         </table>
     </div>
 
 
+ 
 
 
 
@@ -125,57 +160,59 @@
     <a href="https://www.google.com/" target="_blank"> windows
     </a>
 
-
-    <script src="./dist/jquery.min.js"></script>
     
+   <table class="table-2">
+
+    </table>
+
+    
+    <script src="./dist/jquery.min.js"></script>
+
     <script src="./node_modules/jquery-ui/dist/jquery-ui.min.js"></script>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js">
     </script>
-   
+
     <script src="./src/main.js"></script>
 
     <script>
-
         // all delete not possible to this file
 
-
-        // $(".select_all").click(function() {
-        //     console.log('iftekher mahmud')
-        //     $('.select_id').prop('checked', $(this).prop('checked'))
-        // })
-
-        // $('.delete-record').click(function() {
-            
-        //     var id = [];
-        //     $('.select_id:checked').each(function() {
-        //         id.push($(this).val())
-        //     })
-
-        //     $.ajax({
-        //         type: 'delete',
-        //         url: './multi-delete.php', 
-        //         data: {
-        //          uid:id   
-        //         },
-        //         success: function(data) {
-        //             console.log("delete successfully")
-        //             $('.select_id:checked').parent().parent().hide(300)
-        //             // window.location.href= 'index.php';
-        //         }
-        //         // error:function(data) {
-        //         //     console.log('error'+ data)
-        //         // }
-        //     })
-
-
-        // })
+        $("#select-all").click(function() {
+            console.log('iftekher mahmud')
+            $('.select-id').prop('checked', $(this).prop('checked'))
+        })
 
 
 
+        $('.delete-record').click(function() {
+
+            var id = [];
+            $('.select-id:checked').each(function() {
+                id.push($(this).val())
+            })
+
+            console.log(id)
+
+            $.ajax({
+                type: 'delete',
+                url: './multi-delete.php',
+                data: {
+                    uid: id
+                },
+                success: function(data) {
+                    console.log("delete successfully")
+                    $('.select_id:checked').parent().parent().hide(300)
+                    // window.location.href= 'index.php';
+                }
+                // error:function(data) {
+                //     console.log('error'+ data)
+                // }
+            })
 
 
+        })
     </script>
 </body>
 

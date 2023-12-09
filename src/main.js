@@ -1,27 +1,33 @@
- 
-//  on load display data
- $(document).ready(function () {
-    //  $(".show").load("./load-data.html")
-
-    $.ajax({
-       url: "./display.php",
-       success: function (data) {
-          $("#tbody").html(data);
-       }
-    })
-
- });
 
 
+$(document).ready(function() {
+   $('.load').fadeOut(400);
 
 
-// $(".data").click(function () {
-//    $(".show").load("./display.php")
-//    $(".show").css({
-//       "color": "white",
-//       "background-color": "black"
-//    })
-// })
+//    $.get("./display.php",function(data) {
+//    //   var datas = JSON.stringify(data);
+//       // console.log(data)
+//       $.each(data,function(key, item) { 
+
+//          // console.log(item)
+        
+//       $('.tbody').append(`<tr id="select${item.id}">
+//                <td><input type="checkbox" class="select-id" value="<?php echo $row['id'] ?>"></td>
+//                <td>${item.id}</td>
+//                <td>${item.name}</td>
+//                <td>${item.email}</td>
+//                <td>${item.password}</td>
+//                <!-- <td class="edit bg-success user-select-none text-white-50" ><a data-bs-toggle="modal" data-bs-target="#id${item.id}" >edit</a>  -->
+//                <!-- </td> -->
+//                <td class="bg-success user-select-none text-white-50"><a onclick="item_delete( ${item.id} )" id="id${item.id}" class="delete">delete</a></td>
+
+//          </tr>`); 
+//       });
+//    },
+//    "json"
+// );
+
+});
 
 
 // submit to data save
@@ -42,20 +48,10 @@ $(".submit").click(function (e) {
          uemail: email,
          upassword: password
       },
-      success: function () {
-         // console.log("success")
-         // $("#name").val("");
-         // $("#email").val("");
-         // $("#password").val("");
+      success: function (data) {
 
-         //  $.ajax({
-         //     url: "./display.php",
-         //     method: "post",
-         //     success: function (responce) {
-         //        $("#tbody").html(responce);
-         //     }
-         //  })
-         $("#tbody").load("./display.php");
+         window.location.href = './index.php';
+
 
 
       }
@@ -77,7 +73,7 @@ $(".submit").click(function (e) {
 
       },
       success: function() {
-         // $("#tbody").load("./display.php");
+         
          $(`#id${id}`).parent().parent().hide(300)
 
       }
