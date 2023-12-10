@@ -1,14 +1,17 @@
 <?php
  include "./connection.php";
 
- extract($_POST);
-
  $id = $_POST['uid'];
  $name = $_POST['uname'];
  $email = $_POST['uemail'];
  $password = $_POST['upassword'];
 
-    $update = "UPDATE INTO user(name,email,password) VALUES ('$name','$email','$password') WHERE id = '$id'";
+ print_r($id);
+ print_r($name);
+ print_r($email);
+ print_r($password);
+
+    $update = "UPDATE user SET name='$name',email='$email',password='$password' WHERE id = '$id'";
 
     $query = mysqli_query($con, $update);
 

@@ -127,7 +127,7 @@
                     <td><?php echo $row['name']; ?></td>
                     <td><?php echo $row['email']; ?></td>
                     <td><?php echo $row['password']; ?></td>
-                    <td class="edit bg-warning user-select-none text-white" ><a class="nav-link">edit</a></td>
+                    <td class="edit bg-warning user-select-none text-white" ><a class="nav-link edit-select" id="<?php echo $row['id'] ?>" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#update-model">edit</a></td>
 
                     <td class="bg-danger user-select-none text-white"><a onclick="item_delete( <?php echo $row['id']; ?> )" id="id<?php echo $row['id']; ?>" class="delete nav-link">delete</a></td>
 
@@ -145,10 +145,41 @@
             ?>
 
         </table>
+
     </div>
 
+<!-- ======================== update database data ============================= -->
 
- 
+
+    <!-- Modal -->
+    <div class="modal fade" id="update-model" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div id="draggable" class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h1 class="modal-title text-white-50 fs-5" id="staticBackdropLabel">user update data</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+
+                    <form class="input-form" style="display: flex; flex-direction: column; gap: 10px; padding: 0% 10%; ">
+                    
+                        <input type="text" class="user-id form-control" id="id" placeholder="id" disabled>
+                        <input type="text" class="name form-control" id="name" name="name" placeholder="name" required autocomplete="name">
+                        <input type="email" class="email form-control" id="email" name="email" placeholder="email" required autocomplete="email">
+                        <input type="text" class="password form-control" id="password" name="password" placeholder="password" required autocomplete="off">
+
+
+                        <div class="d-flex text-white-50 justify-content-between">
+                            <button class="update-submit px-5 btn btn-success" data-bs-dismiss="modal">Update data</button>
+                            <button type="button" class="btn px-5 btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -215,6 +246,57 @@
 
 
         })
+
+        // ==================data update get selected data =============================
+
+        $('.edit-select').click(function(){
+
+            var select_id =$(this).attr('id');
+          
+            console.log(id); //for debug purposes
+            $.ajax({
+                type: "post",
+                url: "./update-id.php",
+                data: {uid:select_id},
+                dataType: "json",
+                success: function (data) {
+                    console.log(data); //for debug purposes
+                  $('#update-model .user-id').val(data[0].id);
+                  $('#update-model .name').val(data[0].name);
+                  $('#update-model .email').val(data[0].email);
+                  $('#update-model .password').val(data[0].password);   
+                }
+            });
+
+        })
+        // ==================data update get selected data =============================
+
+
+        $('.update-submit').click(function(e){
+            e.preventDefault();
+            var id = $('#update-model #id').val();
+            var name = $("#update-model #name").val();
+            var email = $("#update-model #email").val();
+            var password = $("#update-model #password").val();
+            $.ajax({
+                type: "post",
+                url: "./update.php",
+                data: {
+                    uid:id,
+                    uname: name,
+                    uemail: email,
+                    upassword: password,
+                },
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+        })
+
+
+
+
+
     </script>
 </body>
 
