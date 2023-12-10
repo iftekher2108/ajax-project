@@ -2,9 +2,9 @@
 
 require './connection.php';
 
-// $id =$_POST['uid'];
+$id =$_POST['uid'];
 
-$query = "SELECT * FROM user WHERE id = '183' ";
+$query = "SELECT * FROM user WHERE id = '$id' ";
 
 $ext = mysqli_query($con,$query);
 
