@@ -64,7 +64,7 @@
 
 
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         Add data
     </button>
 
@@ -79,15 +79,15 @@
                 <div class="modal-body">
 
 
-                    <form class="input-form" style="display: flex; flex-direction: column; gap: 10px; padding: 0% 30%; ">
-                        <input type="text" class="name" id="name" name="name" placeholder="name" required>
-                        <input type="email" class="email" id="email" name="email" placeholder="email" required>
-                        <input type="password" class="password" id="password" name="password" placeholder="password" required>
+                    <form class="input-form" style="display: flex; flex-direction: column; gap: 10px; padding: 0% 10%; ">
+                        <input type="text" class="name form-control" id="name" name="name" placeholder="name" required autocomplete="name">
+                        <input type="email" class="email form-control" id="email" name="email" placeholder="email" required autocomplete="email">
+                        <input type="text" class="password form-control" id="password" name="password" placeholder="password" required autocomplete="off">
 
 
-                        <div class=" gap-4 d-flex text-white-50">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button class="submit btn btn-success" data-bs-dismiss="modal">Add data</button>
+                        <div class="d-flex text-white-50 justify-content-between">
+                            <button class="submit px-5 btn btn-success" data-bs-dismiss="modal">Add data</button>
+                            <button type="button" class="btn px-5 btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </form>
                 </div>
@@ -127,10 +127,9 @@
                     <td><?php echo $row['name']; ?></td>
                     <td><?php echo $row['email']; ?></td>
                     <td><?php echo $row['password']; ?></td>
-                    <!-- <td class="edit bg-success user-select-none text-white-50" ><a data-bs-toggle="modal" data-bs-target="#id<?php echo $row['id']; ?>" >edit</a>  -->
-                    <!-- </td> -->
+                    <td class="edit bg-warning user-select-none text-white" ><a class="nav-link">edit</a></td>
 
-                    <td class="bg-success user-select-none text-white-50"><a onclick="item_delete( <?php echo $row['id']; ?> )" id="id<?php echo $row['id']; ?>" class="delete">delete</a></td>
+                    <td class="bg-danger user-select-none text-white"><a onclick="item_delete( <?php echo $row['id']; ?> )" id="id<?php echo $row['id']; ?>" class="delete nav-link">delete</a></td>
 
                 </tr>
 
@@ -196,15 +195,18 @@
             console.log(id)
 
             $.ajax({
-                type: 'delete',
+                type:'post',
                 url: './multi-delete.php',
-                data: {
-                    uid: id
+                data:{
+                uid:id,
                 },
                 success: function(data) {
                     console.log("delete successfully")
-                    $('.select_id:checked').parent().parent().hide(300)
+                    $('.select-id:checked').parent().parent().hide(300)
                     // window.location.href= 'index.php';
+
+                    console.log(data); //for debug purposes
+
                 }
                 // error:function(data) {
                 //     console.log('error'+ data)
